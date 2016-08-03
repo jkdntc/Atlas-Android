@@ -1,1 +1,1 @@
-include ':layer-atlas'
+include ':layer-atlas',':app'
