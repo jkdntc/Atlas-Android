@@ -156,7 +156,7 @@ public class MessagesListActivity extends BaseActivity {
                 .addCellFactories(
                         new TextCellFactory(),
                         new ThreePartImageCellFactory(this, getLayerClient(), getPicasso()),
-                        new LocationCellFactory(this, getPicasso()),
+                        //new LocationCellFactory(this, getPicasso()),
                         new SinglePartImageCellFactory(this, getLayerClient(), getPicasso()),
                         new GenericCellFactory())
                 .setOnMessageSwipeListener(new SwipeableItem.OnSwipeListener<Message>() {
@@ -204,7 +204,8 @@ public class MessagesListActivity extends BaseActivity {
                 .addAttachmentSenders(
                         new CameraSender(R.string.attachment_menu_camera, R.drawable.ic_photo_camera_white_24dp, this),
                         new GallerySender(R.string.attachment_menu_gallery, R.drawable.ic_photo_white_24dp, this),
-                        new LocationSender(R.string.attachment_menu_location, R.drawable.ic_place_white_24dp, this))
+                        //new LocationSender(R.string.attachment_menu_location, R.drawable.ic_place_white_24dp, this),
+                        new AudioSender("Audio", R.drawable.ic_place_white_24dp))
                 .setOnMessageEditTextFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
@@ -219,7 +220,7 @@ public class MessagesListActivity extends BaseActivity {
         Conversation conversation = null;
         Intent intent = getIntent();
         if (intent != null) {
-            if (intent.hasExtra(PushNotificationReceiver.LAYER_CONVERSATION_KEY)) {
+            if (intent.hasExtra(PushNotificationReceiver.LAYER_CONVERSATION_KEY)||true) {
                 Uri conversationId = intent.getParcelableExtra(PushNotificationReceiver.LAYER_CONVERSATION_KEY);
                 conversation = getLayerClient().getConversation(conversationId);
             } else if (intent.hasExtra("participantIds")) {

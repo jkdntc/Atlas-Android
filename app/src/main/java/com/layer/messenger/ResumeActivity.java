@@ -32,7 +32,6 @@ public class ResumeActivity extends AppCompatActivity implements LayerAuthentica
     @Override
     protected void onResume() {
         super.onResume();
-        App.getLayerClient().registerAuthenticationListener(this).authenticate();
         try {
             mLoggedInActivity.set((Class<? extends Activity>) Class.forName(getIntent().getStringExtra(EXTRA_LOGGED_IN_ACTIVITY_CLASS_NAME)));
             mLoggedOutActivity.set((Class<? extends Activity>) Class.forName(getIntent().getStringExtra(EXTRA_LOGGED_OUT_ACTIVITY_CLASS_NAME)));
@@ -41,6 +40,7 @@ public class ResumeActivity extends AppCompatActivity implements LayerAuthentica
                 Log.e("Could not find class: " + e.getCause(), e);
             }
         }
+        App.getLayerClient().registerAuthenticationListener(this).authenticate();
     }
 
     @Override

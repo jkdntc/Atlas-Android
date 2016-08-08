@@ -5,6 +5,7 @@ import android.content.Context;
 import com.layer.atlas.provider.ParticipantProvider;
 import com.layer.atlas.util.Log;
 import com.layer.sdk.LayerClient;
+import com.layer.sdk.listeners.LayerProgressListener;
 import com.layer.sdk.messaging.Conversation;
 import com.layer.sdk.messaging.Message;
 
@@ -77,6 +78,17 @@ public abstract class MessageSender {
         return false;
     }
 
+    protected boolean send(Message message,LayerProgressListener listener) {
+        if ((mCallback == null) || mCallback.beforeSend(this, mLayerClient, mParticipantProvider, mConversation, message)) {
+            mConversation.send(message,listener);
+            if (Log.isLoggable(Log.VERBOSE)) Log.v("Message sent by " + getClass().getSimpleName());
+            return true;
+        }
+        if (Log.isLoggable(Log.VERBOSE)) {
+            Log.v("Message sending aborted by " + getClass().getSimpleName());
+        }
+        return false;
+    }
     /**
      * Callback alerts external classes of MessageSender events.
      */

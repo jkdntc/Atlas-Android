@@ -38,10 +38,7 @@
 
         <!-- Activity: List of Conversations -->
         <activity android:name=".ConversationsListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
 
         <!-- Activity: Messages in a Conversation; AddressBar -->
@@ -49,6 +46,10 @@
             android:name=".MessagesListActivity"
             android:windowSoftInputMode="adjustResize"
             >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
 
         <!-- Activity: Global app settings -->

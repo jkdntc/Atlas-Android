@@ -47,7 +47,7 @@ dependencies {
     compile 'org.slf4j:slf4j-nop:1.7.2'
 
     // Google Cloud Messaging
-    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+    //compile 'com.google.android.gms:play-services-gcm:8.4.0'
 
     // Google Location
     compile 'com.google.android.gms:play-services-location:8.4.0'

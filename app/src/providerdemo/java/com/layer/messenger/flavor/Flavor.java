@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.layer.atlas.provider.ParticipantProvider;
 import com.layer.messenger.App;
+import com.layer.messenger.flavor.customlayersdk.LayerClientImpl;
 import com.layer.messenger.util.AuthenticationProvider;
 import com.layer.messenger.util.Log;
 import com.layer.sdk.LayerClient;
@@ -70,7 +71,9 @@ public class Flavor implements App.Flavor {
         if (appId == null) return null;
 
         options.googleCloudMessagingSenderId(GCM_SENDER_ID);
-        return LayerClient.newInstance(context, appId, options);
+//        return LayerClient.newInstance(context, appId, options);
+
+        return new LayerClientImpl();
     }
 
     @Override
