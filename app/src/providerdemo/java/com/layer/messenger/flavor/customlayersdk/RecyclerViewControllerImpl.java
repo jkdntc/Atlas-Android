@@ -1,6 +1,7 @@
 package com.layer.messenger.flavor.customlayersdk;
 
 import android.net.Uri;
+import android.util.Log;
 import com.layer.sdk.changes.LayerChangeEvent;
 import com.layer.sdk.listeners.LayerChangeEventListener;
 import com.layer.sdk.query.ListViewController;
@@ -20,7 +21,7 @@ public class RecyclerViewControllerImpl <Tquery extends Queryable> extends Recyc
 
     @Override
     public void onChangeEvent(LayerChangeEvent layerChangeEvent) {
-
+        Log.d("RecyclerViewControllerImpl","onChangeEvent");
     }
 
     @Override

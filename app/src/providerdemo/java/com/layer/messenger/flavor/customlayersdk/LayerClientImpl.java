@@ -20,6 +20,7 @@ import java.util.Set;
  * Created by jiangkun on 16/8/8.
  */
 public class LayerClientImpl extends LayerClient {
+    private RecyclerViewController recyclerViewController;
     @Override
     public boolean isClosed() {
         return false;
@@ -42,7 +43,7 @@ public class LayerClientImpl extends LayerClient {
 
     @Override
     public Conversation getConversation(Uri uri) {
-        return new ConversationImpl();
+        return new ConversationImpl(this);
     }
 
     @Override
@@ -133,8 +134,8 @@ public class LayerClientImpl extends LayerClient {
 
     @Override
     public <T extends Queryable> RecyclerViewController<T> newRecyclerViewController(Query<T> query, Collection<String> collection, RecyclerViewController.Callback callback) {
-
-        return new RecyclerViewControllerImpl<T>(callback);
+        recyclerViewController = new RecyclerViewControllerImpl<T>(callback);
+        return recyclerViewController;
     }
 
     @Override

@@ -15,6 +15,12 @@ import java.util.List;
  * Created by jiangkun on 16/8/8.
  */
 public class ConversationImpl extends Conversation {
+    private LayerClient layerClient;
+
+    public ConversationImpl(LayerClient layerClient) {
+        this.layerClient = layerClient;
+    }
+
     @Override
     public void addParticipants(List<String> list) {
 
