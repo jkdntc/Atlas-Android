@@ -71,9 +71,9 @@ public class Flavor implements App.Flavor {
         if (appId == null) return null;
 
         options.googleCloudMessagingSenderId(GCM_SENDER_ID);
-        return LayerClient.newInstance(context, appId, options);
+//        return LayerClient.newInstance(context, appId, options);
 
-//        return new LayerClientImpl();
+        return new LayerClientImpl();
     }
 
     @Override

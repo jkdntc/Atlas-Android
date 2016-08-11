@@ -2,6 +2,7 @@ package com.layer.messenger.flavor.customlayersdk;
 
 import android.net.Uri;
 import android.util.Log;
+import com.layer.sdk.LayerClient;
 import com.layer.sdk.changes.LayerChangeEvent;
 import com.layer.sdk.listeners.LayerChangeEventListener;
 import com.layer.sdk.query.ListViewController;
@@ -12,16 +13,20 @@ import com.layer.sdk.query.RecyclerViewController;
 /**
  * Created by jiangkun on 16/8/8.
  */
-public class RecyclerViewControllerImpl <Tquery extends Queryable> extends RecyclerViewController<Tquery> implements LayerChangeEventListener.BackgroundThread.Weak {
+public class RecyclerViewControllerImpl<Tquery extends Queryable> extends RecyclerViewController<Tquery> implements LayerChangeEventListener.BackgroundThread.Weak {
     private final Callback callback;
-
-    public RecyclerViewControllerImpl(Callback callback) {
+    private LayerClient layerClient;
+    private int itemCount = 0;
+    public RecyclerViewControllerImpl(LayerClient layerClient, Callback callback) {
         this.callback = callback;
+        this.layerClient = layerClient;
     }
 
     @Override
     public void onChangeEvent(LayerChangeEvent layerChangeEvent) {
-        Log.d("RecyclerViewControllerImpl","onChangeEvent");
+        Log.d("RecyclerViewControllerImpl", "onChangeEvent");
+        itemCount += 1;
+        callback.onQueryItemRangeInserted(this, 0, 1);
     }
 
     @Override
@@ -36,12 +41,12 @@ public class RecyclerViewControllerImpl <Tquery extends Queryable> extends Recyc
 
     @Override
     public int getItemCount() {
-        return 0;
+        return itemCount;
     }
 
     @Override
     public Tquery getItem(int i) {
-        return null;
+        return (Tquery) layerClient.get(Uri.parse("uri"));
     }
 
     @Override

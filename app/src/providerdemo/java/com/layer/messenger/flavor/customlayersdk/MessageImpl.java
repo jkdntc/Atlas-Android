@@ -1,22 +1,24 @@
 package com.layer.messenger.flavor.customlayersdk;
 
 import android.net.Uri;
-import android.webkit.WebMessagePort;
 import com.layer.sdk.LayerClient;
 import com.layer.sdk.messaging.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by jiangkun on 16/8/8.
  */
-public class MessageImpl implements Message{
-    private List<MessagePart>  messagePartList;
+public class MessageImpl implements Message {
+    private List<MessagePart> messagePartList;
+    private Conversation conversation;
 
-    public MessageImpl(List<MessagePart>  messagePartList) {
+    public MessageImpl(Conversation conversation, List<MessagePart> messagePartList) {
         this.messagePartList = messagePartList;
+        this.conversation = conversation;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class MessageImpl implements Message{
 
     @Override
     public Uri getId() {
-        return null;
+        return Uri.parse("uri");
     }
 
     @Override
@@ -41,7 +43,7 @@ public class MessageImpl implements Message{
 
     @Override
     public Conversation getConversation() {
-        return null;
+        return conversation;
     }
 
     @Override
@@ -71,17 +73,19 @@ public class MessageImpl implements Message{
 
     @Override
     public Actor getSender() {
-        return null;
+        return new com.layer.sdk.lsdka.lsdkd.lsdka.a("", "jk");
     }
 
     @Override
     public Map<String, RecipientStatus> getRecipientStatus() {
-        return null;
+        HashMap map = new HashMap();
+        map.put("",RecipientStatus.READ);
+        return map;
     }
 
     @Override
     public RecipientStatus getRecipientStatus(String s) {
-        return null;
+        return RecipientStatus.DELIVERED;
     }
 
     @Override

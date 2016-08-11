@@ -20,7 +20,8 @@ import java.util.Set;
  * Created by jiangkun on 16/8/8.
  */
 public class LayerClientImpl extends LayerClient {
-    private RecyclerViewController recyclerViewController;
+    private RecyclerViewControllerImpl recyclerViewController;
+    private ConversationImpl conversation = new ConversationImpl(this);
     @Override
     public boolean isClosed() {
         return false;
@@ -43,7 +44,7 @@ public class LayerClientImpl extends LayerClient {
 
     @Override
     public Conversation getConversation(Uri uri) {
-        return new ConversationImpl(this);
+        return conversation;
     }
 
     @Override
@@ -64,12 +65,12 @@ public class LayerClientImpl extends LayerClient {
     @Override
     public Message newMessage(MessageOptions messageOptions, List<MessagePart> list) {
 
-        return new MessageImpl(list);
+        return new MessageImpl(conversation,list);
     }
 
     @Override
     public MessagePart newMessagePart(String s, byte[] bytes) {
-        return null;
+        return new MessagePortImpl();
     }
 
     @Override
@@ -109,11 +110,12 @@ public class LayerClientImpl extends LayerClient {
 
     @Override
     public Queryable get(Uri uri) {
-        return null;
+        return conversation.getLastMessage();
     }
 
     @Override
     public List executeQuery(Query<? extends Queryable> query, Query.ResultType resultType) {
+        recyclerViewController.onChangeEvent(null);
         return null;
     }
 
@@ -134,7 +136,7 @@ public class LayerClientImpl extends LayerClient {
 
     @Override
     public <T extends Queryable> RecyclerViewController<T> newRecyclerViewController(Query<T> query, Collection<String> collection, RecyclerViewController.Callback callback) {
-        recyclerViewController = new RecyclerViewControllerImpl<T>(callback);
+        recyclerViewController = new RecyclerViewControllerImpl<T>(this,callback);
         return recyclerViewController;
     }
 
@@ -155,7 +157,7 @@ public class LayerClientImpl extends LayerClient {
 
     @Override
     public String getAuthenticatedUserId() {
-        return null;
+        return "";
     }
 
     @Override

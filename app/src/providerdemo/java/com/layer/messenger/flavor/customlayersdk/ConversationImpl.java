@@ -9,6 +9,7 @@ import com.layer.sdk.messaging.Conversation;
 import com.layer.sdk.messaging.Message;
 import com.layer.sdk.messaging.Metadata;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class ConversationImpl extends Conversation {
     private LayerClient layerClient;
-
+    private Message lastMessage;
     public ConversationImpl(LayerClient layerClient) {
         this.layerClient = layerClient;
     }
@@ -64,6 +65,8 @@ public class ConversationImpl extends Conversation {
     @Override
     public  void send(Message message, LayerProgressListener layerProgressListener) {
         Log.d("ConversationImpl","send");
+        lastMessage = message;
+        layerClient.executeQuery(null,null);
     }
 
     @Override
@@ -93,12 +96,12 @@ public class ConversationImpl extends Conversation {
 
     @Override
     public List<String> getParticipants() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public Message getLastMessage() {
-        return null;
+        return lastMessage;
     }
 
     @Override
