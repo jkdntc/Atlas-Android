@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0'
         classpath group: 'com.layer', name: 'gradle-git-repo-plugin', version: '2.0.2'
+        classpath 'com.github.okbuilds:okbuild-gradle-plugin:0.4.1'
     }
 }
 
@@ -15,4 +16,24 @@ allprojects {
         jcenter()
         maven { url "https://raw.githubusercontent.com/layerhq/releases-android/master/releases/" }
     }
+
+}
+
+apply plugin: 'com.github.okbuilds.okbuck-gradle-plugin'
+okbuck {
+    buildToolVersion "23.0.2"
+    target "android-23"
+    projectTargets = [
+            "app": "providerdemoDebug",
+            "layer-atlas":"debug"
+    ]
+    exopackage = [
+            appDebug: true
+    ]
+    buckProjects = project.subprojects
+    appLibDependencies = [
+            'app': [
+                    'layer-atlas',
+            ],
+    ]
 }

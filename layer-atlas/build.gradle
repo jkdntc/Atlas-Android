@@ -1,3 +1,5 @@
+import com.android.builder.model.ClassField
+
 import java.util.regex.Pattern
 
 apply plugin: 'com.android.library'
@@ -26,6 +28,12 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }
+
+    libraryVariants.all { variant ->
+        variant.mergedFlavor.buildConfigFields.put("VERSION_NAME",
+                new com.android.builder.internal.ClassFieldImpl("String", "VERSION_NAME", "\"${version}\""))
+    }
+
 }
 
 repositories {
